@@ -12,7 +12,7 @@ class Battery():
         self.capacity           = capacity          # Energy capacity in Wh
         self.charging_rate      = charging_rate           # Power in W
         self.efficiency         = 0.95
-        self.deltaT             = 15*60             # timestamp in seconds
+        self.deltaT             = 60*60             # timestamp in seconds for hourly data
 
     def reset(self):
         self.state = {
