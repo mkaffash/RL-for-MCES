@@ -5,8 +5,8 @@ Created on 15 apr. 2018
 '''
 class Battery():
     DISCHARGE = -1
-    CHARGE    = 1
-    IDLE      = 0
+    CHARGE = 1
+    IDLE = 0
 
     def __init__(self, capacity, charging_rate):
         self.capacity           = capacity          # Energy capacity in Wh
@@ -35,8 +35,8 @@ class Battery():
             efficiency = 1
 
         # u should have either of the following values: 1 (charging), 0 (idle), -1 (discharging)
-        delta_charge          = u * self.charging_rate * self.time_step_duration * self.deltaT
-        self.state["charge"] += delta_charge * efficiency / 3600
+        delta_charge          = u * self.charging_rate * self.deltaT
+        self.state["charge"] += delta_charge * self.efficiency / 3600
 
         E = self.total_energy(delta_charge)
 
@@ -46,11 +46,11 @@ class Battery():
         # Compute excess energy and adjust battery state.
         if self.state["charge"] > self.capacity:
             # Calculate the energy that the battery took from the environment
-            E                    = delta_charge - ((self.state["charge"] - self.capacity) / self.efficiency)
+            E = delta_charge - ((self.state["charge"] - self.capacity) / self.efficiency)
             self.state["charge"] = self.capacity
         elif self.state["charge"] < 0:
             # Calculate the energy that the battery delivers to the environment
-            E                    = (delta_charge + self.state["charge"]) * self.efficiency
+            E = (delta_charge + self.state["charge"]) * self.efficiency
             self.state["charge"] = 0
         # If no excess energy, compute the amount of energy that has been delivered to or from the grid
         else:
